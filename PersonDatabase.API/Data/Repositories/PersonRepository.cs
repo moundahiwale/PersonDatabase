@@ -22,5 +22,15 @@ namespace PersonDatabase.API.Repositories
         {
             await _context.Persons.AddAsync(person);
         }
+
+        public async Task<Person> FindByIdAsync(int id)
+        {
+            return await _context.Persons.FindAsync(id);
+        }
+
+        public void Update(Person category)
+        {
+            _context.Persons.Update(category);
+        }
     }
 }

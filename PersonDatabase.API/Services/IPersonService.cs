@@ -9,5 +9,6 @@ namespace PersonDatabase.API.Services
     {
         Task<IEnumerable<Person>> ListAsync();
         Task<SavePersonResponse> SaveAsync(Person person);
+        Task<SavePersonResponse> UpdateAsync(int id, Person person);
     }
 }

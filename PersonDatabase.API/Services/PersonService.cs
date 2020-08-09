@@ -39,5 +39,28 @@ namespace PersonDatabase.API.Services
                 return new SavePersonResponse($"An error occurred when saving the person: {ex.Message}");
             }
         }
+
+        public async Task<SavePersonResponse> UpdateAsync(int id, Person person)
+        {
+            var existingPerson = await _personRepository.FindByIdAsync(id);
+
+            if (existingPerson == null)
+                return new SavePersonResponse("Person not found.");
+
+            existingPerson.FirstName = person.FirstName;
+            existingPerson.LastName = person.LastName;
+
+            try
+            {
+                _personRepository.Update(existingPerson);
+                await _unitOfWork.CompleteAsync();
+
+                return new SavePersonResponse(existingPerson);
+            }
+            catch (Exception ex)
+            {
+                return new SavePersonResponse($"An error occurred when updating the person: {ex.Message}");
+            }
+        }
     }
 }

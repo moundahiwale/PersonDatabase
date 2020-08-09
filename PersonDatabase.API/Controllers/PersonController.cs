@@ -46,5 +46,21 @@ namespace PersonDatabase.API.Controllers
 
             return Ok(personToReturn);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> PutAsync(int id, [FromBody] PersonForCreationDTO personToUpdateDTO)
+        {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState.GetErrorMessages());
+
+            var person = _mapper.Map<Person>(personToUpdateDTO);
+            var result = await _personService.UpdateAsync(id, person);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var personResource = _mapper.Map<PersonToReturnDTO>(result.Person);
+            return Ok(personResource);
+        }
     }
 }
