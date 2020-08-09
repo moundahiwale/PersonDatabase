@@ -24,6 +24,11 @@ namespace PersonDatabase.API.Services
             return await _personRepository.ListAsync();
         }
 
+        public async Task<Person> GetAsync(int id)
+        {
+            return await _personRepository.GetAsync(id);
+        }
+
         public async Task<PersonResponse> SaveAsync(Person person)
         {
             try

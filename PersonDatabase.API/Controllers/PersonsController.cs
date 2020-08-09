@@ -30,6 +30,15 @@ namespace PersonDatabase.API.Controllers
             return personsToReturn;
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetAsync(int id)
+        {
+            var person = await _personService.GetAsync(id);
+            var personToReturn = _mapper.Map<PersonToReturnWithAddressDTO>(person);
+
+            return Ok(personToReturn);
+        }
+
         [HttpPost]
         public async Task<IActionResult> PostAsync([FromBody] PersonForCreationDTO personForCreationDTO)
         {

@@ -17,7 +17,10 @@ namespace PersonDatabase.API.Repositories
         {
             return await _context.Persons.ToListAsync();
         }
-
+        public async Task<Person> GetAsync(int id)
+        {
+            return await _context.Persons.Include(p => p.Addresses).FirstOrDefaultAsync(p => p.Id == id);
+        }
         public async Task AddAsync(Person person)
         {
             await _context.Persons.AddAsync(person);

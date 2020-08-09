@@ -9,6 +9,7 @@ namespace PersonDatabase.API.Mapping
         public ModelToDTOProfile()
         {
             CreateMap<Person, PersonToReturnDTO>();
+            CreateMap<Person, PersonToReturnWithAddressDTO>();
             CreateMap<Address, AddressToReturnDTO>();
         }
     }
