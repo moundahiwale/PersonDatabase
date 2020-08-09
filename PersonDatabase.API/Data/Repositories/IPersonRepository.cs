@@ -9,6 +9,7 @@ namespace PersonDatabase.API.Repositories
         Task<IEnumerable<Person>> ListAsync();
         Task AddAsync(Person person);
         Task<Person> FindByIdAsync(int id);
-        void Update(Person category);
+        void Update(Person person);
+        void Remove(Person person);
     }
 }

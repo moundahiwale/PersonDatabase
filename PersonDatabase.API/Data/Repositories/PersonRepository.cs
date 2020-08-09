@@ -28,9 +28,14 @@ namespace PersonDatabase.API.Repositories
             return await _context.Persons.FindAsync(id);
         }
 
-        public void Update(Person category)
+        public void Update(Person person)
         {
-            _context.Persons.Update(category);
+            _context.Persons.Update(person);
+        }
+
+        public void Remove(Person person)
+        {
+            _context.Persons.Remove(person);
         }
     }
 }

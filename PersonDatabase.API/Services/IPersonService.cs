@@ -8,7 +8,8 @@ namespace PersonDatabase.API.Services
     public interface IPersonService
     {
         Task<IEnumerable<Person>> ListAsync();
-        Task<SavePersonResponse> SaveAsync(Person person);
-        Task<SavePersonResponse> UpdateAsync(int id, Person person);
+        Task<PersonResponse> SaveAsync(Person person);
+        Task<PersonResponse> UpdateAsync(int id, Person person);
+        Task<PersonResponse> DeleteAsync(int id);
     }
 }

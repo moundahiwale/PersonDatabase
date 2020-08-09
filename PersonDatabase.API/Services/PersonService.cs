@@ -24,28 +24,28 @@ namespace PersonDatabase.API.Services
             return await _personRepository.ListAsync();
         }
 
-        public async Task<SavePersonResponse> SaveAsync(Person person)
+        public async Task<PersonResponse> SaveAsync(Person person)
         {
             try
             {
                 await _personRepository.AddAsync(person);
                 await _unitOfWork.CompleteAsync();
 
-                return new SavePersonResponse(person);
+                return new PersonResponse(person);
             }
             catch (Exception ex)
             {
                 // Can also log this to a provider of choice, e.g. Azure Application Insights
-                return new SavePersonResponse($"An error occurred when saving the person: {ex.Message}");
+                return new PersonResponse($"An error occurred when saving the person: {ex.Message}");
             }
         }
 
-        public async Task<SavePersonResponse> UpdateAsync(int id, Person person)
+        public async Task<PersonResponse> UpdateAsync(int id, Person person)
         {
             var existingPerson = await _personRepository.FindByIdAsync(id);
 
             if (existingPerson == null)
-                return new SavePersonResponse("Person not found.");
+                return new PersonResponse("Person not found.");
 
             existingPerson.FirstName = person.FirstName;
             existingPerson.LastName = person.LastName;
@@ -55,11 +55,31 @@ namespace PersonDatabase.API.Services
                 _personRepository.Update(existingPerson);
                 await _unitOfWork.CompleteAsync();
 
-                return new SavePersonResponse(existingPerson);
+                return new PersonResponse(existingPerson);
             }
             catch (Exception ex)
             {
-                return new SavePersonResponse($"An error occurred when updating the person: {ex.Message}");
+                return new PersonResponse($"An error occurred when updating the person: {ex.Message}");
+            }
+        }
+
+        public async Task<PersonResponse> DeleteAsync(int id)
+        {
+            var existingPerson = await _personRepository.FindByIdAsync(id);
+
+            if (existingPerson == null)
+                return new PersonResponse("Person not found.");
+
+            try
+            {
+                _personRepository.Remove(existingPerson);
+                await _unitOfWork.CompleteAsync();
+
+                return new PersonResponse(existingPerson);
+            }
+            catch (Exception ex)
+            {
+                return new PersonResponse($"An error occurred when deleting the person: {ex.Message}");
             }
         }
     }

@@ -10,12 +10,12 @@ using PersonDatabase.API.Services;
 namespace PersonDatabase.API.Controllers
 {
     [Route("/api/[controller]")]
-    public class PersonController : ControllerBase
+    public class PersonsController : ControllerBase
     {
         private readonly IPersonService _personService;
         private readonly IMapper _mapper;
 
-        public PersonController(IPersonService personService, IMapper mapper)
+        public PersonsController(IPersonService personService, IMapper mapper)
         {
             _personService = personService;
             _mapper = mapper;
@@ -59,8 +59,22 @@ namespace PersonDatabase.API.Controllers
             if (!result.Success)
                 return BadRequest(result.Message);
 
-            var personResource = _mapper.Map<PersonToReturnDTO>(result.Person);
-            return Ok(personResource);
+            var personToReturn = _mapper.Map<PersonToReturnDTO>(result.Person);
+
+            return Ok(personToReturn);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteAsync(int id)
+        {
+            var result = await _personService.DeleteAsync(id);
+
+            if (!result.Success)
+                return BadRequest(result.Message);
+
+            var personToReturn = _mapper.Map<PersonToReturnDTO>(result.Person);
+
+            return Ok(personToReturn);
         }
     }
 }
