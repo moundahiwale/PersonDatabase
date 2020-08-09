@@ -26,7 +26,9 @@ namespace PersonDatabase.API
             services.AddControllers().AddNewtonsoftJson(options => options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("persondatabase-api-in-memory"));
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IAddressRepository, AddressRepository>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
         }
