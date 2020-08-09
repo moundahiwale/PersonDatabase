@@ -6,6 +6,10 @@ namespace PersonDatabase.API.Mapping
 {
     public class DTOToModelProfile : Profile
     {
-        public DTOToModelProfile() => CreateMap<PersonForCreationDTO, Person>();
+        public DTOToModelProfile()
+        {
+            CreateMap<PersonForCreationDTO, Person>();
+            CreateMap<AddressForCreationDTO, Address>();
+        }
     }
 }
