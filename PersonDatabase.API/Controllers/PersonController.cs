@@ -1,7 +1,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using PersonDatabase.API.Models;
+using PersonDatabase.API.Dtos;
 using PersonDatabase.API.Services;
 
 namespace PersonDatabase.API.Controllers
@@ -10,17 +11,21 @@ namespace PersonDatabase.API.Controllers
     public class PersonController : ControllerBase
     {
         private readonly IPersonService _personService;
+        private readonly IMapper _mapper;
 
-        public PersonController(IPersonService personService)
+        public PersonController(IPersonService personService, IMapper mapper)
         {
             _personService = personService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Person>> GetAllAsync()
+        public async Task<IEnumerable<PersonToReturnDTO>> GetAllAsync()
         {
             var persons = await _personService.ListAsync();
-            return persons;
+            var personsToReturn = _mapper.Map<IEnumerable<PersonToReturnDTO>>(persons);
+
+            return personsToReturn;
         }
     }
 }

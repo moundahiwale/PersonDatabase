@@ -1,3 +1,4 @@
+using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -25,6 +26,7 @@ namespace PersonDatabase.API
             services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("persondatabase-api-in-memory"));
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddAutoMapper();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

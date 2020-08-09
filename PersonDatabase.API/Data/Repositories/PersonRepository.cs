@@ -15,7 +15,7 @@ namespace PersonDatabase.API.Repositories
 
         public async Task<IEnumerable<Person>> ListAsync()
         {
-            return await _context.Persons.Include(p => p.Addresses).ToListAsync();
+            return await _context.Persons.ToListAsync();
         }
     }
 }
