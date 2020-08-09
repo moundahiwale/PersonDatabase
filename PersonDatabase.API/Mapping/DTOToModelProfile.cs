@@ -4,8 +4,8 @@ using PersonDatabase.API.Models;
 
 namespace PersonDatabase.API.Mapping
 {
-    public class ModelToDTOProfile : Profile
+    public class DTOToModelProfile : Profile
     {
-        public ModelToDTOProfile() => CreateMap<Person, PersonToReturnDTO>();
+        public DTOToModelProfile() => CreateMap<PersonForCreationDTO, Person>();
     }
 }

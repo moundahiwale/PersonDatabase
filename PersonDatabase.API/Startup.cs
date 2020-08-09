@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PersonDatabase.API.Data.Contexts;
+using PersonDatabase.API.Data.Repositories;
 using PersonDatabase.API.Repositories;
 using PersonDatabase.API.Services;
 
@@ -26,6 +27,7 @@ namespace PersonDatabase.API
             services.AddDbContext<AppDbContext>(options => options.UseInMemoryDatabase("persondatabase-api-in-memory"));
             services.AddScoped<IPersonRepository, PersonRepository>();
             services.AddScoped<IPersonService, PersonService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper();
         }
 

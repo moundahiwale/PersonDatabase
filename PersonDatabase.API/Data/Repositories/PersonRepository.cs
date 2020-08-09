@@ -17,5 +17,10 @@ namespace PersonDatabase.API.Repositories
         {
             return await _context.Persons.ToListAsync();
         }
+
+        public async Task AddAsync(Person person)
+        {
+            await _context.Persons.AddAsync(person);
+        }
     }
 }
